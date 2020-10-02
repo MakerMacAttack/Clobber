@@ -1,0 +1,19 @@
+Import:
+Everything from the folder of six possible images.
+
+State:
+What is the background color
+What is the current piece
+current display
+
+Constants:
+Array of the background color options, black or white
+Array of the piece options. Red, blue, or none.
+
+Function:
+
+Effect:
+Set current display, when current piece moves. Based on background color and piece.
+
+Render:
+An image from one of six options. The background color, and potentially a piece.
