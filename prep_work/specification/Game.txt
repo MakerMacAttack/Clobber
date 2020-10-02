@@ -21,5 +21,7 @@ AI Random Walk
 AI Medium
 The Clobbit
 
+Effects:
+
 Return:
 Component - Calls the board itself.
