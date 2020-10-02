@@ -23,5 +23,5 @@ The Clobbit
 
 Effects:
 
-Return:
+Render:
 Component - Calls the board itself.
