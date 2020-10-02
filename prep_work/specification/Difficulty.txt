@@ -1,0 +1,11 @@
+Also pops up over the rest of the dimmed components.
+
+Main section: Lets you select one of three difficult options. This selects which Computer AI you play against.
+
+Easy: Random walk AI
+
+Medium: I'll have to check our notes to see what's medium. I think Minimize opponent moves or max flex.
+
+Hard: The Clobbit itself, which I will try to update since right now it's easier than medium.
+
+To the side will be the option for 2 player.

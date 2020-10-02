@@ -1,0 +1,10 @@
+This document will track the general tree of the final program.
+
+App - Kicks it all off
+  Instructions - Tells people how to play
+  Difficulty - Lets them select their difficulty
+  Game - Runs a lot of the mechanics.
+    Board - Where the magic happens
+      Square - Piece of the board
+        Piece - The piece
+  Victory - Displays who won, ideally also lets you start a new game.

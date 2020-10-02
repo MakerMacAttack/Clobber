@@ -1,0 +1,7 @@
+Ideally, pops up over the otherwise grayed-out field.
+
+Displays the instructions for how to play.
+
+Displays the victory conditions
+
+A button to move on to difficulty select.
