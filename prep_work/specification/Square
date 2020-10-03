@@ -11,6 +11,11 @@ Array of the background color options, black or white
 Array of the piece options. Red, blue, or none.
 
 Function:
+A function to handle click, which sorts whether this is the first or second click.
+First click: if any other Square is in selected state, remove it.
+  Put this square in the selected state. Highlight adjactent possible moves.
+Second click: If square is possible selected from another square, complete a move.
+
 
 Effect:
 Set current display, when current piece moves. Based on background color and piece.

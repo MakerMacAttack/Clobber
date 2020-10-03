@@ -1,0 +1,22 @@
+Import:
+Instructions
+Difficulty
+Game
+
+States:
+Have Instructions been acknowledged
+Has difficulty been chosen
+
+Constants
+
+Functions
+
+Effects // These might just be parts of the 
+Display instructions, mount
+Display difficulty if instructions are done, instructions done
+Start game, difficulty chosen
+
+Returns
+Instructions
+Difficulty
+Game

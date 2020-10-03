@@ -1,0 +1,21 @@
+import React
+
+function Difficulty(prop) {
+
+const difficulties [easy, medium, hard, 2player]
+
+function chooseDifficulty(e)
+  setDifficulty(e.target.value)
+  return (
+    <>
+      <p>Describe easy</p>
+      <button value=easy onClick=chooseDifficulty>Easy</button>
+      <p>Describe medium</p>
+      <button value=medium onClick=chooseDifficulty>Medium</button>
+      <p>Describe hard</p>
+      <button value=hard onClick=chooseDifficulty>Hard</button>
+      <p>Describe 2-player</p>
+      <button value=2-player onClick=chooseDifficulty>2-player</button>
+    </>
+  )
+}

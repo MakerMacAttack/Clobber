@@ -1,11 +1,15 @@
+Description:
 Runs the guts of the game.
 
+Import:
+board
+Victory
+
 States:
-Has anyone won
-What moves player 1 can make
-What moves player 2 can make
+Has anyone won (boolean, starts false)
+What moves player 1 can make, array
+What moves player 2 can make, array
 Current AI
-Has the game started
 
 Constants:
 What a square might display
@@ -15,13 +19,14 @@ Possible AIs
 Functions:
 Populate the list of moves for player 1
 Populate the list of moves for player 2
-Check if anyone has won
-Set up the initial board
 AI Random Walk
 AI Medium
 The Clobbit
 
 Effects:
+Set up the initial board
+Check if anyone has won
 
 Render:
-Component - Calls the board itself.
+Square
+Victory

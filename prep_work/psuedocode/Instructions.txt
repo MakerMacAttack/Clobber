@@ -1,0 +1,11 @@
+Import react
+
+function Instructions (prop) {
+  return (
+    <>
+      <p>How to play</p>
+      <p>How to win</p>
+      <button onClick=prop.ack>I understand</button>
+    </>
+  )
+}

@@ -1,4 +1,4 @@
-Also pops up over the rest of the dimmed components.
+Pops up over the rest of the dimmed components, similar to Instructions
 
 Main section: Lets you select one of three difficult options. This selects which Computer AI you play against.
 

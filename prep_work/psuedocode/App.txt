@@ -1,0 +1,23 @@
+Import React,Instructions, Difficulty, Game
+
+function App
+
+states:
+instructionsAck, setInstructionsAck = false
+difficulty, setDifficulty = null
+
+effect( {
+  Turn off instructions and launch Difficulty
+}, [instructionsAck])
+
+effect(() => {
+  Turn off difficulty and start game
+}, [difficulty])
+
+return (
+  <>
+    <Instructions setInstructionsAck=setInstructionsAck />
+    <Difficulty setDifficulty=setDifficulty/>
+    <Game difficulty = difficulty/>
+  </>
+)

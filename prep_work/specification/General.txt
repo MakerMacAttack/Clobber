@@ -6,5 +6,5 @@ App - Kicks it all off
   Game - Runs a lot of the mechanics.
     Board - Where the magic happens
       Square - Piece of the board
-        Piece - The piece // Might not need this one.
-  Victory - Displays who won, ideally also lets you start a new game.
+        // Piece - The piece // Might not need this one.
+    Victory - Displays who won, ideally also lets you start a new game.

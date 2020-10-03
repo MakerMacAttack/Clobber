@@ -1,0 +1,18 @@
+Description:
+The end-of-game screen.
+
+States
+Did the player win, boolean
+
+Constant
+
+Function
+Clear out everything
+Reset all States
+Start new game
+
+Effect
+
+Render
+Display either victory or defeat with some Stats
+Provide a button to start a new game. //We might hold off on this until the rest of it works and just trust that people can hit F5.
