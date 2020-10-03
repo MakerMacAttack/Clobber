@@ -21,11 +21,13 @@ Possible square background colors
 
 Functions:
 Create initial board
-Populate the list of moves for player 1
-Populate the list of moves for player 2
+Populate the list of moves
+call the above for player 1
+call the above for player 2
 AI Random Walk
 AI Medium
 The Clobbit
+A move
 
 Effects:
 Set up the initial board
