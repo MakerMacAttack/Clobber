@@ -1,0 +1,27 @@
+import React, Board, Victory
+
+function Game(prop) { //prop will contain Difficulty
+  [won, setWon] = false
+  [move, setMove] = // What form will a move take?
+  [player1Moves, setPlayer1Moves] = []
+  [player2Moves, setPlayer2Moves] = []
+  [difficulty, setDifficulty] = prop.difficulty
+  [columns, setColumns] = 6 // potentially this could be an option
+  [rows, setRows] = 5
+  [board, setBoard] = createBoard // will return an object where the keys are every position and the value is the piece
+}
+
+const displays = [paths to display images]
+
+function createBoard(col, row) {
+  board = {}
+  for as many rows, i
+    for as many columns, j
+      board[i.toString() + j.toString] = j even ? i even ? 1 : -1 : i even ? -1 : 1
+
+      //if the above doesn't work, do this instead.
+      if (i even)
+        board[i.toString() + j.toString] = j even ? 1 : -1
+      else
+        board[i.toString() + j.toString] = j even ? 1 : -1
+}

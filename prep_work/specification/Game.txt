@@ -7,16 +7,20 @@ Victory
 
 States:
 Has anyone won (boolean, starts false)
+A current move
 What moves player 1 can make, array
 What moves player 2 can make, array
 Current AI
+number of columns = 6 // Leave these to potentially change game size
+number of rows = 5
+the entire board. (Object. Keys are every possible position on the board, value is what piece is there.)
 
 Constants:
 What a square might display
 Possible square background colors
-Possible AIs
 
 Functions:
+Create initial board
 Populate the list of moves for player 1
 Populate the list of moves for player 2
 AI Random Walk

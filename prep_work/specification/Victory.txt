@@ -2,7 +2,7 @@ Description:
 The end-of-game screen.
 
 States
-Did the player win, boolean
+Did the player win, boolean // Don't think this is necessary or feasible
 
 Constant
 

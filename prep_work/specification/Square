@@ -5,10 +5,12 @@ State:
 What is the background color
 What is the current piece
 current display
+position
 
 Constants:
 Array of the background color options, black or white
 Array of the piece options. Red, blue, or none.
+Array of the filenames of the display options
 
 Function:
 A function to handle click, which sorts whether this is the first or second click.

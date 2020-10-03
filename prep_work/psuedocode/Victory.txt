@@ -1,0 +1,17 @@
+import React
+
+function handleClick() {
+  Reset all states, start game over.
+}
+
+function Victory(prop) { //Prop will contain info on if the player won.
+  return (
+    if (player won) {
+      You won!
+    } else {
+      You lost!
+    }
+    Would you like to play again?
+    <button>Play again.
+  )
+}

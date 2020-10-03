@@ -1,4 +1,9 @@
 Import:
+square
+
+Expected prop:
+row
+column
 
 States:
 
@@ -9,3 +14,8 @@ Functions:
 Effects:
 
 Render:
+For as many rows as there are
+  Open a row
+  For as many columns as there are
+    Make a square, and pass it its row and column
+  Close the row
