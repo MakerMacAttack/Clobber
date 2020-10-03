@@ -2,7 +2,7 @@ import React, Board, Victory
 
 function Game(prop) { //prop will contain Difficulty
   [won, setWon] = false
-  [move, setMove] = ['', []]// [index of piece, [index of piece it can take, index of piece it can take]]
+  [move, setMove] = ['', ''// [index of start, index of end]
   [player1Moves, setPlayer1Moves] = []
   [player2Moves, setPlayer2Moves] = []
   [difficulty, setDifficulty] = prop.difficulty
@@ -10,84 +10,84 @@ function Game(prop) { //prop will contain Difficulty
   [rows, setRows] = 5
   [board, setBoard] = createBoard // will return an object where the keys are every position and the value is the piece
   [player1Turn, setPlayer1Turn] = true
-}
 
-const displays = [paths to display images]
+  const displays = [paths to display images]
 
-function createBoard(col, row) {
-  board = {}
-  for as many rows, i
-    for as many columns, j
-      // board[i.toString() + j.toString] = j even ? i even ? 1 : -1 : i even ? -1 : 1
-      board[i.toString() + j.toString] = j % 2 === i % 2 ? 1 : -1 // This should work and it's better
+  function createBoard(col, row) {
+    board = {}
+    for as many rows, i
+      for as many columns, j
+        // board[i.toString() + j.toString] = j even ? i even ? 1 : -1 : i even ? -1 : 1
+        board[i.toString() + j.toString] = j % 2 === i % 2 ? 1 : -1 // This should work and it's better
 
-      //if the above doesn't work, do this instead.
-      if (i even)
-        board[i.toString() + j.toString] = j even ? 1 : -1
-      else
-        board[i.toString() + j.toString] = j even ? 1 : -1  
-  return board
-}
+        //if the above doesn't work, do this instead.
+        if (i even)
+          board[i.toString() + j.toString] = j even ? 1 : -1
+        else
+          board[i.toString() + j.toString] = j even ? 1 : -1  
+    return board
+  }
 
-function populatePlayerMoves(a, b, set) { // expects the number of the player you're checking, the number of the opposite, and the function to set the current player's moves
-  let moves = []
-  for (const piece in board) { // Note: Piece will be the key, not the value.
-    if (board.piece belongs to the player) {
-      let possibleMoves = []
-      const [r, c] = piece // Break the key into row and column
-      const i = parseInt(r) //Make them numbers for math
-      const j = parseInt(c)
-      if (board[i - 1 + c) === b] { // If the piece below belongs to the opponent
-        possibleMoves.push(i - 1 + c)
-      }
-      if (board[i + 1 + c] === b) { // If the piece above belongs to the opponent
-        possibleMoves.push(i + 1 + c)
-      }
-      repeat above for left
-      repeat above for right
-      if anything is in possibleMoves {
-        add to moves [piece, possibleMoves]
+  function populatePlayerMoves(a, b, set) { // expects the number of the player you're checking, the number of the opposite, and the function to set the current player's moves
+    let moves = []
+    for (const piece in board) { // Note: Piece will be the key, not the value.
+      if (board.piece belongs to the player) {
+        let possibleMoves = []
+        const [r, c] = piece // Break the key into row and column
+        const i = parseInt(r) //Make them numbers for math
+        const j = parseInt(c)
+        if (board[i - 1 + c) === b] { // If the piece below belongs to the opponent
+          possibleMoves.push(i - 1 + c)
+        }
+        if (board[i + 1 + c] === b) { // If the piece above belongs to the opponent
+          possibleMoves.push(i + 1 + c)
+        }
+        repeat above for left
+        repeat above for right
+        if anything is in possibleMoves {
+          add to moves [piece, possibleMoves]
+        }
       }
     }
+    set(moves) // this is the function we were passed to set the specific player
   }
-  set(moves) // this is the function we were passed to set the specific player
-}
 
-function populatePlayer1Moves() {
-  populatePlayerMoves(1, -1, setPlayer1Moves)
-}
-
-function populatePlayer2Moves() {
-  populatePlayerMoves(-1, 1, setPlayer2Moves)
-}
-
-function easyAI() {
-  //Returns a random move from the player2 move list
-  const [piece, moves] = player2Moves[Math.floor(Math.random() * player2Moves.length)]
-  move = moves[Math.floor(Math.random() * moves.length)]
-  return [piece, move]
-}
-
-function mediumAI() {
-  // work in progress
-}
-
-function hardAI() {
-  // work in progress
-}
-
-function makeMove() {
-  re-render square based on move[0] to 0
-  re-render square based on move[1] * -1
-}
-
-useEffect(() {
-  if (player's turn) {
-    populatePlayer1Moves()
-  } else {
-    populatePlayer2Moves()
-    // return move from AI based on difficulty. For now just Easy
-    setMove(easyAI())
-    makeMove()
+  function populatePlayer1Moves() {
+    populatePlayerMoves(1, -1, setPlayer1Moves)
   }
-}, [player1Turn])
+
+  function populatePlayer2Moves() {
+    populatePlayerMoves(-1, 1, setPlayer2Moves)
+  }
+
+  function easyAI() {
+    //Returns a random move from the player2 move list
+    const [piece, moves] = player2Moves[Math.floor(Math.random() * player2Moves.length)]
+    move = moves[Math.floor(Math.random() * moves.length)]
+    return [piece, move]
+  }
+
+  function mediumAI() {
+    // work in progress
+  }
+
+  function hardAI() {
+    // work in progress
+  }
+
+  function makeMove() {
+    re-render square based on move[0] to 0
+    re-render square based on move[1] * -1
+  }
+
+  useEffect(() {
+    if (player's turn) {
+      populatePlayer1Moves()
+    } else {
+      populatePlayer2Moves()
+      // return move from AI based on difficulty. For now just Easy
+      setMove(easyAI())
+      makeMove()
+    }
+  }, [player1Turn])
+}
