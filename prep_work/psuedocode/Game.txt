@@ -2,7 +2,7 @@ import React, Board, Victory
 
 function Game(prop) { //prop will contain Difficulty
   [won, setWon] = false
-  [move, setMove] = // What form will a move take?
+  [move, setMove] = ['', []]// [index of piece, [index of piece it can take, index of piece it can take]]
   [player1Moves, setPlayer1Moves] = []
   [player2Moves, setPlayer2Moves] = []
   [difficulty, setDifficulty] = prop.difficulty
@@ -17,11 +17,35 @@ function createBoard(col, row) {
   board = {}
   for as many rows, i
     for as many columns, j
-      board[i.toString() + j.toString] = j even ? i even ? 1 : -1 : i even ? -1 : 1
+      // board[i.toString() + j.toString] = j even ? i even ? 1 : -1 : i even ? -1 : 1
+      board[i.toString() + j.toString] = j % 2 === i % 2 ? 1 : -1 // This should work and it's better
 
       //if the above doesn't work, do this instead.
       if (i even)
         board[i.toString() + j.toString] = j even ? 1 : -1
       else
-        board[i.toString() + j.toString] = j even ? 1 : -1
+        board[i.toString() + j.toString] = j even ? 1 : -1  
+  return board
+}
+
+function populatePlayerMoves(a, b, set) { // expects the number of the player you're checking, the number of the opposite, and the function to set the current player's moves
+  let moves = []
+  for (const piece in board) { // Note: Piece will be the key, not the value.
+    if (board[piece] belongs to the player) {
+      let possibleMoves = []
+      const [r, c] = piece // Break the key into row and column
+      const i = parseInt(r) //Make them numbers for math
+      const j = parseInt(c)
+      if (i > 0) {
+        if (board[(i-1).toString + c] === b) { // If the piece below belongs to the opponent
+          possibleMoves.push(board[(i-1).toString + c)
+        }
+      }
+      if (i < rows - 1) { // Is this even necessary? What error happens if it checks an index which doesn't exist?
+        if (board[(i-1).toString + c] === b) { // If the piece below belongs to the opponent
+          possibleMoves.push(board[(i-1).toString + c)
+        }
+      }
+    }
+  }
 }

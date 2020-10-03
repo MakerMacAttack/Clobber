@@ -16,7 +16,7 @@ number of rows = 5
 the entire board. (Object. Keys are every possible position on the board, value is what piece is there.)
 
 Constants:
-What a square might display
+What a square might display // moved these to square
 Possible square background colors
 
 Functions:
