@@ -12,10 +12,16 @@ function Game(prop) {
   // const [board, setBoard] = useState(createBoard())
   // const [player1Turn, setPlayer1Turn] = useState(true)
 
-  const displays = ["Square Images/White Red.png", "Square Images/White None.png", "Square Images/White Blue.png", "Square Images/Black Red.png", "Square Images/Black None.png", "Square Images/Black Blue.png"]
+  const displays = ["./SquareImages/whitered.png", "./SquareImages/whitenone.png", "./SquareImages/whiteblue.png", "./SquareImages/blackred.png", "./SquareImages/blacknone.png", "./SquareImages/blackblue.png"]
   // const difficulties = ["easy", "medium", "hard", "2player"]
-  const row = [0, 1, 2, 3, 4]
-  const column = [0, 1, 2, 3, 4, 5]
+  let row = []
+  for (let i = 1; i <= rows; i++) {
+    row.push(i)
+  }
+  const column = []
+  for (let i = 1; i <= columns; i++) {
+    column.push(i)
+  }
 
   return (
     <div class="board">
