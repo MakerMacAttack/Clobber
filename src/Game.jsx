@@ -6,8 +6,8 @@ function Game(prop) {
   // const [move, setMove] = useState(['', ''])
   const [player1Moves, setPlayer1Moves] = useState([])
   const [player2Moves, setPlayer2Moves] = useState([])
-  const [columns, setColumns] = useState(6)
-  const [rows, setRows] = useState(5)
+  // const [columns, setColumns] = useState(6)
+  // const [rows, setRows] = useState(5)
   const [board, setBoard] = useState({})
   const [player1Turn, setPlayer1Turn] = useState(true)
   const [captured, setCaptured] = useState([])
@@ -17,6 +17,9 @@ function Game(prop) {
   const [threatened, setThreatened] = useState([])
   const [selected, setSelected] = useState('')
   const [valid, setValid] = useState([])
+
+  const columns = 6
+  const rows = 5
 
   let row = []
   for (let i = 0; i < rows; i++) {
@@ -103,7 +106,7 @@ function Game(prop) {
     setThreatened([])
     if (newCaptured) {
       if (captured.includes(newCaptured)) { // ask someone to help fix this with rest operator
-        const newList = captured.filter(position => position != newCaptured)
+        const newList = captured.filter(position => position !== newCaptured)
         setCaptured(newList)
       } else {
         setCaptured([...captured, newCaptured])

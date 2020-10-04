@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Difficulty from './Difficulty'
 import Game from './Game';
 import Instructions from './Instructions'
