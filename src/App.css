@@ -45,3 +45,19 @@
   max-width: 312px;
   max-height: 312px;
 }
+
+.red.captured {
+  background: blue;
+}
+
+.blue.captured {
+  background: red;
+}
+
+.threatened {
+  background: green;
+}
+
+.empty {
+  display: none;
+}
