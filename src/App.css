@@ -69,3 +69,7 @@
 .empty {
   display: none;
 }
+
+.valid {
+  border: 1px solid green;
+}

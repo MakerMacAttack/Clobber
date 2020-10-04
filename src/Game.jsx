@@ -8,7 +8,7 @@ function Game(prop) {
   const [player2Moves, setPlayer2Moves] = useState([])
   const [columns, setColumns] = useState(6)
   const [rows, setRows] = useState(5)
-  const [board, setBoard] = useState(createBoard())
+  const [board, setBoard] = useState({})
   const [player1Turn, setPlayer1Turn] = useState(true)
   const [captured, setCaptured] = useState([])
   const [empty, setEmpty] = useState([])
@@ -27,21 +27,22 @@ function Game(prop) {
   }
 
   function createBoard() {
-    board = {}
+    let newBoard = {}
     for (let i = 0; i < rows; i++)
       for (let j = 0; j < columns; j++)
-        board[i.toString() + j.toString] = j % 2 === i % 2 ? 1 : -1 // This should work and it's better
-    return board
+        newBoard[i.toString() + j.toString] = j % 2 === i % 2 ? 1 : -1 // This should work and it's better
+    return newBoard
   }
 
   function updateBoard() {
-    board = createBoard()
-    captured.map(position => board[position] = board[position] * -1)
-    empty.map(space => board[space] = 0)
+    let updateBoard = createBoard()
+    captured.map(position => updateBoard[position] = updateBoard[position] * -1)
+    empty.map(space => updateBoard[space] = 0)
+    setBoard(updateBoard)
   }
 
   function populatePlayerMoves(a, b, set) { // expects the number of the player you're checking, the number of the opposite, and the function to set the current player's moves
-    updateBoard()  
+    updateBoard()
     let moves = []
     for (const piece in board) { // Note: Piece will be the key, not the value.
       if (board.piece === a) {
@@ -55,11 +56,11 @@ function Game(prop) {
         if (board[(i + 1).toString() + c] === b) { // If the piece above belongs to the opponent
           possibleMoves.push((i + 1).toString() + c)
         }
-        if (board[r +(j - 1).toString()] === b) { // If the piece above belongs to the opponent
-          possibleMoves.push(r +(j - 1).toString())
+        if (board[r + (j - 1).toString()] === b) { // If the piece above belongs to the opponent
+          possibleMoves.push(r + (j - 1).toString())
         }
-        if (board[r +(j + 1).toString()] === b) { // If the piece above belongs to the opponent
-          possibleMoves.push(r +(j + 1).toString())
+        if (board[r + (j + 1).toString()] === b) { // If the piece above belongs to the opponent
+          possibleMoves.push(r + (j + 1).toString())
         }
         if (possibleMoves.length > 0) {
           moves.push([piece, possibleMoves])
@@ -69,9 +70,35 @@ function Game(prop) {
     set(moves) // this is the function we were passed to set the specific player
   }
 
+  function easyAI() {
+    //Returns a random move from the player2 move list
+    const [piece, moves] = player2Moves[Math.floor(Math.random() * player2Moves.length)]
+    const move = moves[Math.floor(Math.random() * moves.length)]
+    return [piece, move]
+  }
+
+  function makeMove(moveArr) {
+    setEmpty([...empty, moveArr[0]])
+    setNewCaptured(moveArr[1])
+  }
+
+  function checkValid(id) {
+    let check = false
+    player1Moves.map(move => {
+      if (move[0] === id) {
+        check = true
+      }
+    })
+    return check
+  }
+
   useEffect(() => {
     if (player1Turn) {
-
+      populatePlayerMoves(1, -1, setPlayer1Moves)
+    } else {
+      populatePlayerMoves(-1, 1, setPlayer2Moves)
+      makeMove(easyAI) // this part will get more complicated as we introduce more levels of AI
+      setPlayer1Turn(true)
     }
   }, [player1Turn])
 
@@ -123,7 +150,7 @@ function Game(prop) {
                   empty={empty.includes(id)}
                   captured={captured.includes(id)}
                   selected={id === selected}
-                  // valid={} Y'know what we will worry about this later.
+                  valid={() => checkValid(id)}
                   setSelected={setSelected}
                   threatened={threatened.includes(id)}
                 />)

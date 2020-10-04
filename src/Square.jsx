@@ -4,7 +4,7 @@ function Square(prop) {
   function handleClick() {
     if (prop.threatened) {
       prop.setNewCaptured(prop.id)
-    } else if (!prop.empty) {
+    } else if (prop.valid) {
       prop.setSelected(prop.id)
     }
   }
