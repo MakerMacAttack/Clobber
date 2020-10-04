@@ -8,7 +8,7 @@ function Game(prop) {
   const [player2Moves, setPlayer2Moves] = useState([])
   const [columns, setColumns] = useState(6)
   const [rows, setRows] = useState(5)
-  // const [board, setBoard] = useState(createBoard())
+  const [board, setBoard] = useState(createBoard())
   const [player1Turn, setPlayer1Turn] = useState(true)
   const [captured, setCaptured] = useState([])
   const [empty, setEmpty] = useState([])
@@ -26,16 +26,60 @@ function Game(prop) {
     column.push(i)
   }
 
-  function checkOpp(position) {
-    
+  function createBoard() {
+    board = {}
+    for (let i = 0; i < rows; i++)
+      for (let j = 0; j < columns; j++)
+        board[i.toString() + j.toString] = j % 2 === i % 2 ? 1 : -1 // This should work and it's better
+    return board
   }
+
+  function updateBoard() {
+    board = createBoard()
+    captured.map(position => board[position] = board[position] * -1)
+    empty.map(space => board[space] = 0)
+  }
+
+  function populatePlayerMoves(a, b, set) { // expects the number of the player you're checking, the number of the opposite, and the function to set the current player's moves
+    updateBoard()  
+    let moves = []
+    for (const piece in board) { // Note: Piece will be the key, not the value.
+      if (board.piece === a) {
+        let possibleMoves = []
+        const [r, c] = piece // Break the key into row and column
+        const i = parseInt(r) //Make them numbers for math
+        const j = parseInt(c)
+        if (board[(i - 1).toString() + c] === b) { // If the piece below belongs to the opponent
+          possibleMoves.push((i - 1).toString() + c)
+        }
+        if (board[(i + 1).toString() + c] === b) { // If the piece above belongs to the opponent
+          possibleMoves.push((i + 1).toString() + c)
+        }
+        if (board[r +(j - 1).toString()] === b) { // If the piece above belongs to the opponent
+          possibleMoves.push(r +(j - 1).toString())
+        }
+        if (board[r +(j + 1).toString()] === b) { // If the piece above belongs to the opponent
+          possibleMoves.push(r +(j + 1).toString())
+        }
+        if (possibleMoves.length > 0) {
+          moves.push([piece, possibleMoves])
+        }
+      }
+    }
+    set(moves) // this is the function we were passed to set the specific player
+  }
+
+  useEffect(() => {
+    if (player1Turn) {
+
+    }
+  }, [player1Turn])
 
   useEffect(() => {
     setThreatened([])
     if (newCaptured) {
       if (captured.includes(newCaptured)) { // ask someone to help fix this with rest operator
-        const idx = captured.findIndex(newCaptured)
-        const newList = [...captured.slice(0, idx), ...captured.slice(idx + 1, captured.length)]
+        const newList = captured.filter(position => position != newCaptured)
         setCaptured(newList)
       } else {
         setCaptured([...captured, newCaptured])
@@ -54,8 +98,8 @@ function Game(prop) {
       const down = (i - 1).toString() + j.toString()
       const left = i.toString() + (j - 1).toString()
       const right = i.toString() + (j + 1).toString()
-      const threatenedArray = [up, down, left, right]
-      threatenedArray.filter(checkOpp)
+      const possibleVictims = [up, down, left, right]
+      const threatenedArray = possibleVictims.filter(position => (captured.includes(position) === captured.includes(selected)))
       setThreatened(threatenedArray)
     }
   }, [selected])

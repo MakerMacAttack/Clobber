@@ -58,6 +58,14 @@
   background: green;
 }
 
+.blue.captured.threatened{
+  background: green;
+}
+
+.red.captured.threatened{
+  background: green;
+}
+
 .empty {
   display: none;
 }
