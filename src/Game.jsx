@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import Square from './Square'
 
 function Game(prop) {
-  const [won, setWon] = useState(false)
-  const [move, setMove] = useState(['', ''])
+  // const [won, setWon] = useState(false)
+  // const [move, setMove] = useState(['', ''])
   const [player1Moves, setPlayer1Moves] = useState([])
   const [player2Moves, setPlayer2Moves] = useState([])
   const [columns, setColumns] = useState(6)
@@ -12,7 +12,7 @@ function Game(prop) {
   const [player1Turn, setPlayer1Turn] = useState(true)
   const [captured, setCaptured] = useState([])
   const [empty, setEmpty] = useState([])
-  const [moving, setMoving] = useState('')
+  // const [moving, setMoving] = useState('')
   const [newCaptured, setNewCaptured] = useState('')
   const [threatened, setThreatened] = useState([])
   const [selected, setSelected] = useState('')
@@ -31,22 +31,22 @@ function Game(prop) {
     let newBoard = {}
     for (let i = 0; i < rows; i++)
       for (let j = 0; j < columns; j++)
-        newBoard[i.toString() + j.toString] = j % 2 === i % 2 ? 1 : -1 // This should work and it's better
+        newBoard[i.toString() + j.toString()] = (j % 2 === i % 2 ? 1 : -1) // This should work and it's better
     return newBoard
   }
 
   function updateBoard() {
-    let updateBoard = createBoard()
-    captured.map(position => updateBoard[position] = updateBoard[position] * -1)
-    empty.map(space => updateBoard[space] = 0)
-    setBoard(updateBoard)
+    let updatedBoard = createBoard()
+    captured.map(position => updatedBoard[position] = updatedBoard[position] * -1)
+    empty.map(space => updatedBoard[space] = 0)
+    setBoard(updatedBoard)
   }
 
   function populatePlayerMoves(a, b, set) { // expects the number of the player you're checking, the number of the opposite, and the function to set the current player's moves
     updateBoard()
     let moves = []
     for (const piece in board) { // Note: Piece will be the key, not the value.
-      if (board.piece === a) {
+      if (board[piece] === a) {
         let possibleMoves = []
         const [r, c] = piece // Break the key into row and column
         const i = parseInt(r) //Make them numbers for math
@@ -84,7 +84,6 @@ function Game(prop) {
   }
 
   function handleStart() {
-    setBoard(createBoard())
     populatePlayerMoves(1, -1, setPlayer1Moves)
     setValid(player1Moves.map(moves => moves[0]))
   }
@@ -143,7 +142,7 @@ function Game(prop) {
                   square={(c % 2 === r % 2) ? "white" : "black"}
                   piece={(c % 2 === r % 2) ? "blue" : "red"}
                   setEmpty={setEmpty}
-                  setMoving={setMoving}
+                  // setMoving={setMoving}
                   setNewCaptured={setNewCaptured}
                   setPlayer1Turn={setPlayer1Turn}
                   empty={empty.includes(id)}

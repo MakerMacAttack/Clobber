@@ -4,9 +4,9 @@ function Square(prop) {
   function handleClick() {
     if (prop.threatened) {
       prop.setNewCaptured(prop.id)
+      prop.setPlayer1Turn(false)
     } else if (prop.valid) {
       prop.setSelected(prop.id)
-      prop.setPlayer1Turn(false)
     }
   }
 
