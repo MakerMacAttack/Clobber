@@ -6,6 +6,7 @@ function Square(prop) {
       prop.setNewCaptured(prop.id)
     } else if (prop.valid) {
       prop.setSelected(prop.id)
+      prop.setPlayer1Turn(false)
     }
   }
 

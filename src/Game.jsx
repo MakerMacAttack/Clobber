@@ -16,6 +16,7 @@ function Game(prop) {
   const [newCaptured, setNewCaptured] = useState('')
   const [threatened, setThreatened] = useState([])
   const [selected, setSelected] = useState('')
+  const [valid, setValid] = useState([])
 
   let row = []
   for (let i = 0; i < rows; i++) {
@@ -82,19 +83,16 @@ function Game(prop) {
     setNewCaptured(moveArr[1])
   }
 
-  function checkValid(id) {
-    let check = false
-    player1Moves.map(move => {
-      if (move[0] === id) {
-        check = true
-      }
-    })
-    return check
+  function handleStart() {
+    setBoard(createBoard())
+    populatePlayerMoves(1, -1, setPlayer1Moves)
+    setValid(player1Moves.map(moves => moves[0]))
   }
 
   useEffect(() => {
     if (player1Turn) {
       populatePlayerMoves(1, -1, setPlayer1Moves)
+      setValid(player1Moves.map(moves => moves[0]))
     } else {
       populatePlayerMoves(-1, 1, setPlayer2Moves)
       makeMove(easyAI) // this part will get more complicated as we introduce more levels of AI
@@ -147,10 +145,11 @@ function Game(prop) {
                   setEmpty={setEmpty}
                   setMoving={setMoving}
                   setNewCaptured={setNewCaptured}
+                  setPlayer1Turn={setPlayer1Turn}
                   empty={empty.includes(id)}
                   captured={captured.includes(id)}
                   selected={id === selected}
-                  valid={() => checkValid(id)}
+                  valid={valid.includes(id)}
                   setSelected={setSelected}
                   threatened={threatened.includes(id)}
                 />)
@@ -158,6 +157,7 @@ function Game(prop) {
           </div>
         )
       })}
+      <button onClick={handleStart}>Start</button>
     </div>
   )
 }
