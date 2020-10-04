@@ -12,7 +12,6 @@ function Game(prop) {
   // const [board, setBoard] = useState(createBoard())
   // const [player1Turn, setPlayer1Turn] = useState(true)
 
-  const displays = ["./SquareImages/whitered.png", "./SquareImages/whitenone.png", "./SquareImages/whiteblue.png", "./SquareImages/blackred.png", "./SquareImages/blacknone.png", "./SquareImages/blackblue.png"]
   // const difficulties = ["easy", "medium", "hard", "2player"]
   let row = []
   for (let i = 1; i <= rows; i++) {
@@ -28,7 +27,7 @@ function Game(prop) {
       {row.map(r => {
         return (
           <div class="row">
-            {column.map(c => <Square src={(c % 2 === r % 2) ? require("./SquareImages/whiteblue.png") : require("./SquareImages/blackred.png")} />)}
+            {column.map(c => <Square square={(c % 2 === r % 2) ? "white" : "black"} piece={(c % 2 === r % 2) ? "blue" : "red"} />)}
           </div>
         )
       })}

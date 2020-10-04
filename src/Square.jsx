@@ -1,7 +1,9 @@
 import React from 'react'
 
 function Square(prop) {
-  return <img src={prop.src} />
+  return (<div class={prop.square}>
+    <div class={prop.piece}></div>
+  </div>)
 }
 
 export default Square

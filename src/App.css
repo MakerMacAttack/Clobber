@@ -1,7 +1,43 @@
-img {
+.row {
+  display: flex;
+}
+
+.white {
   max-width: 50px;
+  width: 50px;
+  max-height: 50px;
+  height: 50px;
   border: 1px solid black;
-  margin: 0, auto;
+  background: white;
+}
+
+.black {
+  max-width: 50px;
+  width: 50px;
+  max-height: 50px;
+  height: 50px;
+  border: 1px solid black;
+  background: black;
+}
+
+.red {
+  max-width: 30px;
+  width: 30px;
+  max-height: 30px;
+  height: 30px;
+  background: red;
+  border-radius: 15px;
+  margin: 0 auto;
+}
+
+.blue {
+  max-width: 30px;
+  width: 30px;
+  max-height: 30px;
+  height: 30px;
+  background: blue;
+  border-radius: 15px;
+  margin: 0 auto;
 }
 
 .board {
