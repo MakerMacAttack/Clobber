@@ -88,7 +88,7 @@ function Game(prop) {
 
   function handleStart() {
     populatePlayerMoves(1, -1, setPlayer1Moves)
-    setValid(player1Moves.map(moves => moves[0]))
+    window.setTimeout(setValid(player1Moves.map(moves => moves[0])), () => alert("Failed to start game"), 10000)
   }
 
   useEffect(() => {
