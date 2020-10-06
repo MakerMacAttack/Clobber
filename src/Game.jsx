@@ -4,23 +4,24 @@ import Square from './Square'
 function Game(prop) {
   // const [won, setWon] = useState(false)
   // const [move, setMove] = useState(['', ''])
-  const [player1Moves, setPlayer1Moves] = useState([])
-  const [player2Moves, setPlayer2Moves] = useState([])
+  const [player1Moves, setPlayer1Moves] = useState([]) // These will be arrays, in the form of 
+  const [player2Moves, setPlayer2Moves] = useState([]) // ["piece which can move", ["piece it can take", "piece it can take", "piece it can take"]
   // const [columns, setColumns] = useState(6)
   // const [rows, setRows] = useState(5)
-  const [board, setBoard] = useState({})
-  const [player1Turn, setPlayer1Turn] = useState(true)
-  const [captured, setCaptured] = useState([])
-  const [empty, setEmpty] = useState([])
+  const [board, setBoard] = useState({}) // An object holding the state of the board
+  const [player1Turn, setPlayer1Turn] = useState(true) // Whose turn is it
+  const [captured, setCaptured] = useState([]) // Basically a list of captured pieces, slightly more specific than that
+  const [empty, setEmpty] = useState([]) // Squares which are empty. Because of the rules of the game, once a square is empty, it is empty until the end of the game.
   // const [moving, setMoving] = useState('')
-  const [newCaptured, setNewCaptured] = useState('')
-  const [threatened, setThreatened] = useState([])
-  const [selected, setSelected] = useState('')
-  const [valid, setValid] = useState([])
+  const [newCaptured, setNewCaptured] = useState('') // The just-captured piece
+  const [threatened, setThreatened] = useState([]) // Alert the player what their options are
+  const [selected, setSelected] = useState('') // Which piece the player chose
+  const [valid, setValid] = useState([]) // All Player1 pieces with valid moves
 
-  const columns = 6
+  const columns = 6 // Down the road I might let the board be bigger
   const rows = 5
 
+    // generate arrays for the rows and columns.
   let row = []
   for (let i = 0; i < rows; i++) {
     row.push(i)
@@ -32,45 +33,45 @@ function Game(prop) {
 
   function createBoard() {
     let newBoard = {}
-    for (let i = 0; i < rows; i++)
-      for (let j = 0; j < columns; j++)
-        newBoard[i.toString() + j.toString()] = (j % 2 === i % 2 ? 1 : -1) // This should work and it's better
+    for (let i = 0; i < rows; i++) // for every row
+      for (let j = 0; j < columns; j++) // for ever column
+        newBoard[i.toString() + j.toString()] = (j % 2 === i % 2 ? 1 : -1) // Builds two diagonal grids, 1's and -1's, to represent player 1 pieces and player 2 pieces
     return newBoard
   }
 
   function updateBoard() {
-    let updatedBoard = createBoard()
-    captured.map(position => updatedBoard[position] = updatedBoard[position] * -1)
-    empty.map(space => updatedBoard[space] = 0)
+    let updatedBoard = createBoard() // get a fresh board
+    captured.map(position => updatedBoard[position] = updatedBoard[position] * -1) // If a piece has been captured, flip it.
+    empty.map(space => updatedBoard[space] = 0) // If a square is empty, its value is 0
     setBoard(updatedBoard)
   }
 
-  function populatePlayerMoves(a, b, set) { // expects the number of the player you're checking, the number of the opposite, and the function to set the current player's moves
-    updateBoard()
+  function populatePlayerMoves(a, b, set) { // Checks your pieces to opponent pieces, and sets the list of moves.
+    updateBoard() // Make sure board is up to date.
     let moves = []
     for (const piece in board) { // Note: Piece will be the key, not the value.
-      if (board[piece] === a) {
+      if (board[piece] === a) { // For every one of my pieces on the board...
         let possibleMoves = []
         const [r, c] = piece // Break the key into row and column
         const i = parseInt(r) //Make them numbers for math
         const j = parseInt(c)
-        if (board[(i - 1).toString() + c] === b) { // If the piece below belongs to the opponent
-          possibleMoves.push((i - 1).toString() + c)
+        if (board[(i - 1).toString() + c] === b) { // If the piece below belongs to the opponent...
+          possibleMoves.push((i - 1).toString() + c) // ... then this is a valid move
         }
-        if (board[(i + 1).toString() + c] === b) { // If the piece above belongs to the opponent
+        if (board[(i + 1).toString() + c] === b) { // If the piece above belongs to the opponent...
           possibleMoves.push((i + 1).toString() + c)
         }
-        if (board[r + (j - 1).toString()] === b) { // If the piece above belongs to the opponent
+        if (board[r + (j - 1).toString()] === b) { // If the piece above belongs to the opponent...
           possibleMoves.push(r + (j - 1).toString())
         }
-        if (board[r + (j + 1).toString()] === b) { // If the piece above belongs to the opponent
+        if (board[r + (j + 1).toString()] === b) { // If the piece above belongs to the opponent...
           possibleMoves.push(r + (j + 1).toString())
         }
-        if (possibleMoves.length > 0) {
-          moves.push([piece, possibleMoves])
+        if (possibleMoves.length > 0) { // If the piece has any valid moves...
+          moves.push([piece, possibleMoves]) // ... add it to the local scope moves list.
         }
       }
-    }
+    } // Local list is now complete, pass it to the state.
     set(moves) // this is the function we were passed to set the specific player
   }
 
@@ -81,9 +82,9 @@ function Game(prop) {
     return [piece, move]
   }
 
-  function makeMove(moveArr) {
-    setEmpty([...empty, moveArr[0]])
-    setNewCaptured(moveArr[1])
+  function makeMove(moveArr) { // Expects an array with two values, the key for the attacking piece and the key for the losing piece.
+    setEmpty([...empty, moveArr[0]]) // The attacker leaves its square which is now empty forever.
+    setNewCaptured(moveArr[1]) // The defending square is now captured which triggers a somewhat complicated thing.
   }
 
   function handleStart() { //janice this is the one that's not working
@@ -91,10 +92,10 @@ function Game(prop) {
     setValid(player1Moves.map(moves => moves[0])) // Before this line runs
   }
 
-  useEffect(() => {
+  useEffect(() => { // top half is human player's turn, bottom half is computer player's turn.
     if (player1Turn) {
       populatePlayerMoves(1, -1, setPlayer1Moves)
-      setValid(player1Moves.map(moves => moves[0]))
+      setValid(player1Moves.map(moves => moves[0])) // This emulates the function I can't get working above, and then waits for player input.
     } else {
       populatePlayerMoves(-1, 1, setPlayer2Moves)
       makeMove(easyAI) // this part will get more complicated as we introduce more levels of AI
@@ -104,10 +105,10 @@ function Game(prop) {
   }, [player1Turn])
 
   useEffect(() => {
-    setThreatened([])
+    setThreatened([]) // A convenient place to reset the threatened pieces.
     if (newCaptured) {
-      if (captured.includes(newCaptured)) { // ask someone to help fix this with rest operator
-        const newList = captured.filter(position => position !== newCaptured)
+      if (captured.includes(newCaptured)) { // This is the slightly tricky bit. If the same square goes back and forth between players...
+        const newList = captured.filter(position => position !== newCaptured) // ... 
         setCaptured(newList)
       } else {
         setCaptured([...captured, newCaptured])
