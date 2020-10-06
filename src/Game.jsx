@@ -86,9 +86,9 @@ function Game(prop) {
     setNewCaptured(moveArr[1])
   }
 
-  function handleStart() {
-    populatePlayerMoves(1, -1, setPlayer1Moves)
-    window.setTimeout(setValid(player1Moves.map(moves => moves[0])), () => alert("Failed to start game"), 10000)
+  function handleStart() { //janice this is the one that's not working
+    populatePlayerMoves(1, -1, setPlayer1Moves) // I want this line to completely finish
+    setValid(player1Moves.map(moves => moves[0])) // Before this line runs
   }
 
   useEffect(() => {
@@ -98,6 +98,7 @@ function Game(prop) {
     } else {
       populatePlayerMoves(-1, 1, setPlayer2Moves)
       makeMove(easyAI) // this part will get more complicated as we introduce more levels of AI
+      // console.log("computer turn")
       setPlayer1Turn(true)
     }
   }, [player1Turn])
