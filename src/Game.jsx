@@ -87,18 +87,22 @@ function Game(prop) {
     setNewCaptured(moveArr[1]) // The defending square is now captured which triggers a somewhat complicated thing.
   }
 
-  function handleStart() { //janice this is the one that's not working
-    populatePlayerMoves(1, -1, setPlayer1Moves) // I want this line to completely finish
-    setValid(player1Moves.map(moves => moves[0])) // Before this line runs
+  function handleStart() { 
+    populatePlayerMoves(1, -1, setPlayer1Moves)
   }
+
+  useEffect(() => setValid(player1Moves.map(moves => moves[0]))
+    , [player1Moves])
+
+  useEffect(() => makeMove(easyAI), [player2Moves])
 
   useEffect(() => { // top half is human player's turn, bottom half is computer player's turn.
     if (player1Turn) {
       populatePlayerMoves(1, -1, setPlayer1Moves)
-      setValid(player1Moves.map(moves => moves[0])) // This emulates the function I can't get working above, and then waits for player input.
+      // setValid(player1Moves.map(moves => moves[0]))
     } else {
       populatePlayerMoves(-1, 1, setPlayer2Moves)
-      makeMove(easyAI) // this part will get more complicated as we introduce more levels of AI
+      //makeMove(easyAI) // this part will get more complicated as we introduce more levels of AI
       // console.log("computer turn")
       setPlayer1Turn(true)
     }
