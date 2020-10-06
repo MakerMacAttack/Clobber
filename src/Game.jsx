@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Square from './Square'
 
 function Game(prop) {
-  // const [won, setWon] = useState(false)
+  const [won, setWon] = useState(false)
   // const [move, setMove] = useState(['', ''])
   const [player1Moves, setPlayer1Moves] = useState([]) // These will be arrays, in the form of 
   const [player2Moves, setPlayer2Moves] = useState([]) // ["piece which can move", ["piece it can take", "piece it can take", "piece it can take"]
@@ -17,9 +17,27 @@ function Game(prop) {
   const [threatened, setThreatened] = useState([]) // Alert the player what their options are
   const [selected, setSelected] = useState('') // Which piece the player chose
   const [valid, setValid] = useState([]) // All Player1 pieces with valid moves
+  // const [ai, setAI] = useState('')
 
   const columns = 6 // Down the road I might let the board be bigger
   const rows = 5
+
+  // switch (prop.difficulty) {
+  //   case 0:
+  //     setAI("easy");
+  //     break;
+  //   case 1:
+  //     setAI("medium");
+  //     break;
+  //   case 2:
+  //     setAI("hard");
+  //     break;
+  //   case 3:
+  //     setAI("2player");
+  //     break;
+  //   default:
+  //     setAI('none');
+  // }
 
     // generate arrays for the rows and columns.
   let row = []
@@ -91,7 +109,12 @@ function Game(prop) {
     populatePlayerMoves(1, -1, setPlayer1Moves)
   }
 
-  useEffect(() => setValid(player1Moves.map(moves => moves[0]))
+  useEffect(() => {
+    setValid(player1Moves.map(moves => moves[0]))
+    if (player1Moves.length === 0) {
+      setWon()
+    }
+  }
     , [player1Moves])
 
   useEffect(() => makeMove(easyAI), [player2Moves])
@@ -136,6 +159,8 @@ function Game(prop) {
       setThreatened(threatenedArray)
     }
   }, [selected])
+
+  useEffect(() => populatePlayerMoves(1, -1, setPlayer1Moves), []) // Need to find a way to make this trigger at some point.
 
   return (
     <div className="board">
